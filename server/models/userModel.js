@@ -10,7 +10,11 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String
-    }
+    },
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
     timestamps: true
 })
