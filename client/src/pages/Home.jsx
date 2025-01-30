@@ -27,7 +27,7 @@ function Home() {
     <h1 className="text-3xl text-center text-red-600">Welcome {user?.name}</h1>
     <button onClick={handleLogout} className='border cursor-pointer py-2 font-semibold bg-sky-400 mt-6 px-3 rounded-md'>Logout</button>
 
-    <nav>
+    <nav className='flex justify-center gap-x-4'>
 
       <Link to = "/search">Search Users</Link>
       <Link to="/friend-requests">Friend Requests</Link>
