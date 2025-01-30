@@ -10,18 +10,17 @@ router.get("/users/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Fetch the current user and their friends
-    const currentUser = await User.findById(userId).populate("friends");
+    // Find all users who have a pending friend request from the current user
+    const sentRequests = await FriendRequest.find({ sender: userId }).select("receiver");
+    const sentRequestIds = sentRequests.map((request) => request.receiver.toString());
 
-    if (!currentUser) {
-      return res.status(404).json({ msg: "User not found" });
-    }
+    // Find all users who are already friends
+    const user = await User.findById(userId).populate("friends");
+    const friendIds = user.friends.map((friend) => friend._id.toString());
 
-    const friendIds = currentUser.friends.map((friend) => friend._id);
-
-    // Find users who are NOT the current user and NOT in the friends list
+    // Fetch users who are NOT the current user, NOT friends, and do NOT have a pending request
     const users = await User.find({
-      _id: { $ne: userId, $nin: friendIds },
+      _id: { $nin: [...friendIds, ...sentRequestIds, userId] },
     });
 
     res.json(users);
@@ -29,6 +28,34 @@ router.get("/users/:userId", async (req, res) => {
     res.status(500).json({ msg: "Error fetching users" });
   }
 });
+
+// remoeve friend
+
+router.put("/removeFriend", async (req,res) => {
+  const {userId, friendId} = req.body;
+
+  try {
+
+    const user = await User.findById(userId)
+    const friend = await User.findById(friendId)
+
+    if(!user || !friend){
+      return res.status(404).json({msg: "User not found"})
+    }
+
+
+    user.friends = user.friends.filter((id) => id.toString() !== friendId)
+ 
+    friend.friends = friend.friends.filter((id) => id.toString() !== userId)
+
+    await user.save()
+    await friend.save()
+
+    res.json({msg: "friend removed successfully"})
+  } catch (error) {
+    res.status(500).json({msg: "Error removing friends"})
+  }
+})
 
 // get users friends
 

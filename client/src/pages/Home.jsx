@@ -42,8 +42,8 @@ function Home() {
   return (
     <>
       <ToastContainer />
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center">
+     
+        <div className="flex justify-evenly md:justify-between items-center">
           <h1 className="text-4xl font-semibold text-red-600">Welcome, {user?.name}</h1>
           <button
             onClick={handleLogout}
@@ -53,7 +53,7 @@ function Home() {
           </button>
         </div>
 
-        <div className="mt-8 gap-x-6 ">
+        <div className="mt-4 gap-x-6 ">
           {/* Tab Navigation */}
           <div className="flex space-x-6 justify-center">
 
@@ -110,7 +110,7 @@ function Home() {
             {renderTabContent()}
           </div>
         </div>
-      </div>
+     
     </>
   );
 }

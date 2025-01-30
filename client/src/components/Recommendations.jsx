@@ -33,9 +33,9 @@ function Recommendations() {
     <>
     <ToastContainer />
       {recommendations.length > 0 ? (
-        <div className="overflow-y-scroll">
-          <h3 className="text-red-600 font-semibold">Friend Recommendations</h3>
-              <ul className="list bg-neutral-900 rounded-box shadow-md">
+        <div >
+          <h3 className="text-red-600 text-2xl -mt-3 mb-1 fontbold">Friend Recommendations</h3>
+              <ul className="list overflow-y-scroll h-96 bg-neutral-900 rounded-box shadow-md">
 
               {recommendations.map((rec) => (
             <li key={rec._id} className="list-row flex justify-evenly items-center">

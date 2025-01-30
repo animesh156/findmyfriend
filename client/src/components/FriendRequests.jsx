@@ -14,7 +14,7 @@ function FriendRequests() {
     useEffect(() => {
         async function loadRequests() {
             const res = await getFriendRequests(user._id)
-            console.log(res)
+            
             setRequests(res.data)
         }
         loadRequests()
@@ -52,14 +52,14 @@ function FriendRequests() {
     {requests.length > 0 ? (
       <>
       <h3>Friend Requests</h3>
-
+    {console.log(requests)}
 
       <ul className=" bg-neutral-900 rounded-box shadow-md">
 
       {requests.map((req) => (
             <li key={req._id} className=" py-2 flex justify-evenly items-center">
               <div>
-              <p><span className="text-pink-600 uppercase font-bold">{req.sender.name}</span> sent you a friend request</p>
+              <p><span className="text-pink-600 uppercase font-bold">{req.sender.name === null ? req.sender.name : "Guest"} </span> sent you a friend request</p>
               </div>
               
               <div className="space-x-3">

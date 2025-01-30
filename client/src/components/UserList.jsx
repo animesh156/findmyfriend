@@ -21,13 +21,16 @@ function UserList() {
       try {
         await sendFriendRequest(user?._id, receiverId)
         toast.success("Friend request sent")
-        
+
+         setUsers((prevUsers) => prevUsers.filter((userData) => userData._id !== receiverId))
+
+       
       } catch (error) {
        toast.error('Error sending friend request')
         console.log(error.message)
       }
        
-    } 
+    }
 
 
   return (
@@ -35,9 +38,9 @@ function UserList() {
     <ToastContainer />
      {users.length > 0 ? (
     <>
-      <h3 className="text-md font-medium">Users</h3>
+      <h3 className="text-2xl -mt-4 text-black font-bold mb-2">Users</h3>
 
-      <ul className="list bg-neutral-900 rounded-box shadow-md">
+      <ul className="list h-96 overflow-y-scroll bg-neutral-900 rounded-box shadow-md">
 
       {users.map((user) => (
         
