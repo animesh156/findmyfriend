@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react"
-import {fetchUsers, sendFriendRequest} from '../api'
+import {getUserFriends, sendFriendRequest} from '../api'
 import { useSelector } from "react-redux"
-import {ToastContainer, toast} from 'react-toastify'
 
 
-function UserList() {
+function UserFriends() {
 
     const {user} = useSelector((state) => state.auth)
-    const [users, setUsers] = useState([])
+    const [friends, setFriends] = useState([])
 
     useEffect(() => {
         async function loadUsers() {
-            const res = await fetchUsers(user._id)
-            setUsers(res.data)
+            const res = await getUserFriends(user._id)
+            setFriends(res.data)
         }
      loadUsers()
     }, [user])
@@ -20,26 +19,25 @@ function UserList() {
     const sendRequest = async (receiverId) => {
       try {
         await sendFriendRequest(user?._id, receiverId)
-        toast.success("Friend request sent")
         
       } catch (error) {
-       toast.error('Error sending friend request')
+        console.log(user?._id)
+        console.log(receiverId)
         console.log(error.message)
       }
        
-    } 
+    }
 
 
   return (
     <>
-    <ToastContainer />
-     {users.length > 0 ? (
+     {friends.length > 0 ? (
     <>
       <h3 className="text-md font-medium">Users</h3>
 
       <ul className="list bg-neutral-900 rounded-box shadow-md">
 
-      {users.map((user) => (
+      {friends.map((user) => (
         
         <li key={user._id} className="list-row flex justify-evenly items-center">
           
@@ -51,7 +49,7 @@ function UserList() {
           </div>
          <div>
 
-         <button className="btn" onClick={() => sendRequest(user._id)}>Add Friend</button>
+         <button className="btn bg-red-500 text-black font-bold" onClick={() => sendRequest(user._id)}>Remove</button>
 
          </div>
           
@@ -62,11 +60,11 @@ function UserList() {
       
     </>
   ) : (
-    <p className="text-3xl text-red-600 font-semibold">No users</p>
+    <p className="text-3xl text-red-600 font-semibold">No friends</p>
   )}
     
     </>
   )
 }
 
-export default UserList
+export default UserFriends

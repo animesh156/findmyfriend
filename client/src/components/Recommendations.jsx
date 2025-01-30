@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getRecommendations, sendFriendRequest } from "../api";
 import { useSelector } from "react-redux";
+import {toast,ToastContainer} from 'react-toastify'
 
 function Recommendations() {
   const { user } = useSelector((state) => state.auth);
@@ -15,24 +16,53 @@ function Recommendations() {
   }, [user]);
 
   const handleSendRequest = async (receiverId) => {
-    await sendFriendRequest(user._id, receiverId);
+    try {
+
+      await sendFriendRequest(user._id, receiverId);
     setRecommendations(recommendations.filter((rec) => rec._id !== receiverId));
+    toast.success("Friend request sent!")
+      
+    } catch (error) {
+      toast.error("Error sending request")
+      console.log(error)
+    }
+    
   };
 
   return (
     <>
-      <h3>Friend Recommendations</h3>
+    <ToastContainer />
       {recommendations.length > 0 ? (
-        recommendations.map((rec) => (
-          <div key={rec._id}>
-            <p>{rec.name}</p>
-            <button onClick={() => handleSendRequest(rec._id)}>
-              Add Friend
-            </button>
-          </div>
-        ))
+        <div className="overflow-y-scroll">
+          <h3 className="text-red-600 font-semibold">Friend Recommendations</h3>
+              <ul className="list bg-neutral-900 rounded-box shadow-md">
+
+              {recommendations.map((rec) => (
+            <li key={rec._id} className="list-row flex justify-evenly items-center">
+
+<div className="w-12"><img src="https://img.daisyui.com/images/profile/demo/1@94.webp"/></div>
+
+              <div>
+
+              <p className="uppercase text-md text-sky-600 font-semibold">{rec.name}</p>
+
+              </div>
+              <div>
+
+              <button className="btn" onClick={() => handleSendRequest(rec._id)}>
+                Add Friend
+              </button>
+
+              </div>
+              
+            </li>
+          ))}
+
+              </ul>
+          
+        </div>
       ) : (
-        <p>No recommendations available</p>
+        <p className="text-2xl text-yellow-600 font-semibold">No recommendations available</p>
       )}
     </>
   );

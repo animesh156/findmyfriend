@@ -1,22 +1,63 @@
 const express = require("express");
 const User = require("../models/userModel");
 const FriendRequest = require("../models/FriendRequestModel");
+const mongoose = require('mongoose')
 
 const router = express.Router();
 
 // Get all users except current user
 router.get("/users/:userId", async (req, res) => {
   try {
-    const users = await User.find({ _id: { $ne: req.params.userId } });
+    const userId = req.params.userId;
+
+    // Fetch the current user and their friends
+    const currentUser = await User.findById(userId).populate("friends");
+
+    if (!currentUser) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const friendIds = currentUser.friends.map((friend) => friend._id);
+
+    // Find users who are NOT the current user and NOT in the friends list
+    const users = await User.find({
+      _id: { $ne: userId, $nin: friendIds },
+    });
+
     res.json(users);
   } catch (err) {
     res.status(500).json({ msg: "Error fetching users" });
   }
 });
 
+// get users friends
+
+router.get('/:userId', async (req,res) => {
+  try {
+    const user = await User.findById(req.params.userId).populate('friends','name email')
+
+    if(!user){
+      return res.status(404).json({msg: "User not found"})
+    }
+
+    res.json(user.friends)
+  } catch (error) {
+    res.status(500).json({msg: "error fetching friends"})
+  }
+})
+ 
 // Send Friend Request
 router.post("/sendRequest", async (req, res) => {
+ 
   const { senderId, receiverId } = req.body;
+
+  console.log("Sender ID:", senderId);
+  console.log("Receiver ID:", receiverId);
+
+   // Validate if senderId and receiverId are valid ObjectIds
+   if (!mongoose.Types.ObjectId.isValid(senderId) || !mongoose.Types.ObjectId.isValid(receiverId)) {
+    return res.status(400).json({ msg: "Invalid sender or receiver ID" });
+  }
   
   try {
     if (senderId === receiverId) {
@@ -76,7 +117,7 @@ router.put("/rejectRequest", async (req, res) => {
 router.get("/requests/:userId", async (req, res) => {
   try {
     const requests = await FriendRequest.find({ receiver: req.params.userId, status: "pending" })
-      .populate("sender", "username");
+      .populate("sender", "name");
     res.json(requests);
   } catch (err) {
     res.status(500).json({ msg: "Error fetching friend requests" });

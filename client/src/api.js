@@ -9,3 +9,4 @@ export const acceptFriendRequest = (requestId) => axios.put(`${API_URL}/friends/
 export const rejectFriendRequest = (requestId) => axios.put(`${API_URL}/friends/rejectRequest`, { requestId });
 export const getFriendRequests = (userId) => axios.get(`${API_URL}/friends/requests/${userId}`);
 export const getRecommendations = (userId) => axios.get(`${API_URL}/friends/recommendations/${userId}`);
+export const getUserFriends = (userId) => axios.get(`${API_URL}/friends/${userId}`)
