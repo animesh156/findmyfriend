@@ -1,7 +1,8 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {toast, ToastContainer} from 'react-toastify'
 import { reset, logout } from '../features/auth/authSlice'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
+import UserList from '../components/UserList'
 
 function Home() {
 
@@ -27,13 +28,8 @@ function Home() {
     <h1 className="text-3xl text-center text-red-600">Welcome {user?.name}</h1>
     <button onClick={handleLogout} className='border cursor-pointer py-2 font-semibold bg-sky-400 mt-6 px-3 rounded-md'>Logout</button>
 
-    <nav className='flex justify-center gap-x-4'>
-
-      <Link to = "/search">Search Users</Link>
-      <Link to="/friend-requests">Friend Requests</Link>
-      <Link to="/recommendations">Recommendations</Link>
-
-    </nav>
+   <UserList />
+   
     </>
   )
 }
