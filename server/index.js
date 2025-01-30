@@ -5,7 +5,7 @@ const cors = require('cors')
 const connectDB = require('./config/db')
 const port = process.env.PORT 
 const authRoutes = require('./routes/authRoute')
-const friendRequestModel = require('./models/friendRequestModel')
+
 const FriendRequestRoute = require('./routes/FriendRequestRoute')
 
 
