@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/user', authRoutes)
 app.use('/friends', FriendRequestRoute)
-
+ 
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
