@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import {getFriendRequests, acceptFriendRequest, rejectFriendRequest} from '../api'
 import {toast,ToastContainer} from 'react-toastify'
 import {useSelector} from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
 
 
 function FriendRequests() {
      
     const {user} = useSelector((state) => state.auth)
+    const navigate = useNavigate()
 
     const [requests, setRequests] = useState([])
 
@@ -44,6 +46,18 @@ function FriendRequests() {
         
     }
 
+    useEffect(() => {
+
+      if(!user){
+        toast.warning("Please login first")
+
+        setTimeout(() => {
+          navigate("/login")
+        },2000)
+      }
+       
+    },[user,navigate])
+
 
   return (
     <>
@@ -51,13 +65,13 @@ function FriendRequests() {
      <ToastContainer />
     {requests.length > 0 ? (
       <>
-      <h3>Friend Requests</h3>
+      <h3 className="text-center font-bold text-2xl md:text-4xl mt-2 mb-5">Friend Requests</h3>
     {console.log(requests)}
 
-      <ul className=" bg-neutral-900 rounded-box shadow-md">
+      <ul className="list overflow-y-scroll h-96 p-3 dark:bg-neutral-900 rounded-box shadow-md">
 
       {requests.map((req) => (
-            <li key={req._id} className=" py-2 flex justify-evenly items-center">
+            <li key={req._id} className="list-row mb-1   bg-gray-100 flex  justify-between md:justify-evenly items-center">
               <div>
               <p><span className="text-pink-600 uppercase font-bold">{req.sender.name === null ? req.sender.name : "Guest"} </span> sent you a friend request</p>
               </div>
@@ -75,7 +89,7 @@ function FriendRequests() {
         
          </>
     ) : (
-         <p className="text-2xl text-green-600 fotn-semibold">No friend requests</p>
+         <p className="text-3xl mt-16 md:text-5xl text-center text-green-600 font-bold">No friend requests</p>
     )}
 
     </>

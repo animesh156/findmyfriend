@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { getUserFriends, removeFriend } from "../api";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function UserFriends() {
   const { user } = useSelector((state) => state.auth);
   const [friends, setFriends] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function loadUsers() {
@@ -14,7 +16,7 @@ function UserFriends() {
     }
     loadUsers();
   }, [user]);
-
+  
   const handleRemoveFriend = async (friendId) => {
     try {
       await removeFriend(user?._id, friendId);
@@ -29,24 +31,34 @@ function UserFriends() {
     }
   };
 
+  useEffect(() => {
+      if(!user){
+        toast.warning("Please login first")
+
+        setTimeout(() => {
+            navigate("/login")
+        },2000)
+      }
+  }, [user, navigate])
+
   return (
     <>
       <ToastContainer />
       {friends.length > 0 ? (
         <>
-          <h3 className="text-md font-medium">Users</h3>
+          <h3 className="text-center mt-5 mb-5 md:text-4xl text-2xl font-bold">Users</h3>
 
-          <ul className="list bg-neutral-900 rounded-box shadow-md">
+          <ul className="list p-3 overflow-y-scroll h-96 dark:bg-neutral-900 ">
             {friends.map((user) => (
               <li
                 key={user._id}
-                className="list-row flex justify-evenly items-center"
+                className="list-row bg-gray-200 flex justify-evenly items-center"
               >
                 <div className="w-12">
                   <img src="https://img.daisyui.com/images/profile/demo/1@94.webp" />
                 </div>
                 <div>
-                  <p className="uppercase text-md text-sky-600 font-semibold">
+                  <p className="uppercase text-md text-sky-600 font-bold">
                     {user.name}
                   </p>
                 </div>
@@ -63,7 +75,7 @@ function UserFriends() {
           </ul>
         </>
       ) : (
-        <p className="text-3xl text-red-600 font-semibold">No friends</p>
+        <p className="md:text-5xl text-3xl text-center mt-14 text-red-600 font-bold">No friends</p>
       )}
     </>
   );

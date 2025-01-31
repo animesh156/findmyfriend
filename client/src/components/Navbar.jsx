@@ -19,11 +19,11 @@ function Navbar() {
     const onLogout = () => {
       toast.success('Logged out scuccessfully')
         // Delay navigation to allow toast to display
-  setTimeout(() => {
+  
     dispatch(logout());
     dispatch(reset());
-    navigate('/');
-  }, 2000); 
+    navigate('/login');
+
     }
 
 
@@ -37,9 +37,9 @@ function Navbar() {
 
       <ToastContainer />
       <div className="nav-container">
-        <div className="nav-logo">
+        <div className="nav-logo ">
          
-         <p className="text-white text-xl font-bold">MindWell</p>
+         <img src="./friends.png" alt="" className="w-10" />
          
         </div>
 
