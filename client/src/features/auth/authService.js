@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const registerRoute =  "http://localhost:6564/user/register"
+const registerRoute =  "https://findmyfriend-backend.vercel.app/user/register"
 
-const loginRoute = "http://localhost:6564/user/login"
+const loginRoute = "https://findmyfriend-backend.vercel.app/user/login"
 
 
 
