@@ -55,7 +55,7 @@ function UserFriends() {
                 className="list-row bg-gray-200 flex justify-evenly items-center"
               >
                 <div className="w-12">
-                  <img src="https://img.daisyui.com/images/profile/demo/1@94.webp" />
+                  <img src="./avatar.png" />
                 </div>
                 <div>
                   <p className="uppercase text-md text-sky-600 font-bold">
