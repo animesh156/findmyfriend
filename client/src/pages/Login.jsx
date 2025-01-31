@@ -22,12 +22,13 @@ function Login() {
   useEffect(() => {
     if (isError) {
       toast.error("Invalid Credentials");
+      toast.dismiss()
       dispatch(reset());
     }
 
     if (isSuccess || user) {
       toast.success("User logged in successfully!");
-      
+      toast.dismiss()
       setTimeout(() => {
         navigate("/");
       dispatch(reset());

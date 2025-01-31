@@ -15,6 +15,7 @@ function Home() {
              toast.warning("Please login first")
      
              setTimeout(() => {
+              toast.dismiss();
                navigate("/login")
              },2000)
            }
