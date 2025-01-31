@@ -39,15 +39,17 @@ function Home() {
     }
   };
 
+  if(!user) navigate('/login')
+
   return (
     <>
       <ToastContainer />
      
         <div className="flex justify-evenly md:justify-between items-center">
-          <h1 className="text-4xl font-semibold text-red-600">Welcome, {user?.name}</h1>
+          <h1 className="md:text-4xl font-semibold text-pink-500">Welcome, {user?.name}</h1>
           <button
             onClick={handleLogout}
-            className="py-2 px-4 bg-sky-500 text-white font-semibold rounded-lg shadow-md hover:bg-sky-400 transition duration-200"
+            className="md:py-2 md:px-4 py-1 px-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-sky-400 transition duration-200"
           >
             Logout
           </button>
@@ -55,11 +57,11 @@ function Home() {
 
         <div className="mt-4 gap-x-6 ">
           {/* Tab Navigation */}
-          <div className="flex space-x-6 justify-center">
+          <div className="flex md:space-x-6 space-x-2 justify-center">
 
           <button
               onClick={() => setActiveTab("users")}
-              className={`py-2 px-4 font-semibold rounded-lg ${
+              className={`md:py-2 md:px-4 px-2 text-xs font-semibold rounded-lg ${
                 activeTab === "users"
                   ? "bg-sky-500 text-white"
                   : "bg-gray-100 text-gray-700"

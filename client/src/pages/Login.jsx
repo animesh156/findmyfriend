@@ -66,16 +66,19 @@ function Login() {
 
   return (
     <div
-      className="flex items-center justify-center h-screen"
+      className="flex flex-col md:mt-12 mt-8 items-center justify-center "
      
     >
       <ToastContainer />
-      <section className="mx-auto border shadow-md backdrop-blur-sm md:w-96 px-4 py-4 text-center rounded-3xl">
+
+      <h1 className="md:text-6xl font-bold text-3xl text-center">Welcome Back</h1>
+      <h4 className="text-center  mt-2 mb-6">Enter your email and password to access your account</h4>
+      <section className="mx-auto border shadow-lg shadow-gray-300 md:w-96 px-4 py-4 text-center rounded-3xl">
         <form onSubmit={onSubmit} className="py-5 mt-6 md:w-full ">
           <div>
             <input
               type="email"
-              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm  focus:ring-gray-500 rounded-xl w-64 md:w-80 caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm  focus:ring-gray-500 rounded-xl w-64 md:w-80 caret-yellow-500  mb-8"
               id="email"
               name="email"
               value={email}
@@ -87,7 +90,7 @@ function Login() {
           <div>
             <input
               type="password"
-              className="py-2.5 px-3 border-2 w-64 focus:outline-none focus:ring-1 backdrop-blur-sm  focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 w-64 focus:outline-none focus:ring-1 backdrop-blur-sm  focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500  mb-8"
               id="password"
               name="password"
               value={password}
@@ -99,14 +102,14 @@ function Login() {
           <div>
             <button
               type="submit"
-              className="py-2 px-3 bg-cyan-500 hover:bg-cyan-600 text-black rounded-lg transition-all md:w-32"
+              className="py-2 px-3 w-64 bg-neutral-950 hover:bg-neutral-800 text-white rounded-lg transition-all md:w-32"
             >
               Login
             </button>
           </div>
 
           <div className="mt-4">
-            <p className="font-bold text-gray-300 hover:text-gray-400 text-base">
+            <p className="font-bold text-neutral-900  text-base">
               New User ?{" "}
               <Link
                 to="/register"
