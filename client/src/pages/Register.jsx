@@ -34,7 +34,7 @@ function Register() {
           setTimeout(() => {
             navigate('/');
             dispatch(reset());
-          },2000)
+          },1000)
           
         }
     

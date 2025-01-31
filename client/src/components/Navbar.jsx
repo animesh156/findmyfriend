@@ -55,7 +55,8 @@ function Navbar() {
             click ? "nav-menu active" : "nav-menu "
           } text-gray-300 font-normal text-base bg-neutral-800`}
         >
-          <li className="nav-item">
+
+          {user ? <li className="nav-item">
             <NavLink
               exact
               to="/"
@@ -65,7 +66,8 @@ function Navbar() {
             >
               Home
             </NavLink>
-          </li>
+          </li> : <></> }
+          
           <li className="nav-item">
             <NavLink
               exact
