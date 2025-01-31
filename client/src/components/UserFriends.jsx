@@ -67,7 +67,7 @@ function UserFriends() {
                     className="btn bg-red-500 hover:bg-red-700 text-black font-bold"
                     onClick={() => handleRemoveFriend(user._id)}
                   >
-                    Remove
+                    Unfriend
                   </button>
                 </div>
               </li>
