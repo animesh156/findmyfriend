@@ -78,8 +78,7 @@ router.post("/sendRequest", async (req, res) => {
  
   const { senderId, receiverId } = req.body;
 
-  console.log("Sender ID:", senderId);
-  console.log("Receiver ID:", receiverId);
+ 
 
    // Validate if senderId and receiverId are valid ObjectIds
    if (!mongoose.Types.ObjectId.isValid(senderId) || !mongoose.Types.ObjectId.isValid(receiverId)) {
