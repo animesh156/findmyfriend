@@ -3,10 +3,13 @@ import {getFriendRequests, acceptFriendRequest, rejectFriendRequest} from '../ap
 import {toast,ToastContainer} from 'react-toastify'
 import {useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import Loader from '../components/Loader'
 
 
 
 function FriendRequests() {
+
+  const [isLoading,setLoading] = useState(true)
      
     const {user} = useSelector((state) => state.auth)
     const navigate = useNavigate()
@@ -15,9 +18,15 @@ function FriendRequests() {
 
     useEffect(() => {
         async function loadRequests() {
+          try {
             const res = await getFriendRequests(user._id)
-            
             setRequests(res.data)
+            setLoading(false)
+          } catch (error) {
+            console.log(error)
+            setLoading(false)
+          }
+            
         }
         loadRequests()
     }, [user])
@@ -59,6 +68,12 @@ function FriendRequests() {
     },[user,navigate])
 
 
+    if (isLoading) {
+      return (
+        <Loader />
+      );
+    }
+
   return (
     <>
 
@@ -74,7 +89,7 @@ function FriendRequests() {
       <ul className="list overflow-y-scroll h-96 p-3 dark:bg-neutral-900 rounded-box shadow-md">
 
       {requests.map((req) => (
-            <li key={req._id} className="list-row mb-1   bg-gray-100 flex  justify-between md:justify-evenly items-center">
+            <li key={req._id} className="list-row mb-1 dark:bg-neutral-800  bg-gray-100 flex  justify-between items-center">
               <div>
               <p><span className="text-pink-600 uppercase font-bold">{req.sender.name === null ? req.sender.name : "Guest"} </span> sent you a friend request</p>
               </div>

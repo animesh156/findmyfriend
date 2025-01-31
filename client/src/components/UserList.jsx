@@ -2,15 +2,24 @@ import { useEffect, useState } from "react";
 import { fetchUsers, sendFriendRequest } from "../api";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from '../components/Loader'
 
 function UserList() {
   const { user } = useSelector((state) => state.auth);
   const [users, setUsers] = useState([]);
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadUsers() {
-      const res = await fetchUsers(user._id);
+      try {
+        const res = await fetchUsers(user._id);
       setUsers(res.data);
+       setLoading(false)
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      }
+      
     }
     loadUsers();
   }, [user]);
@@ -29,6 +38,12 @@ function UserList() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
+
   return (
     <>
      
@@ -43,11 +58,11 @@ function UserList() {
             All Users
           </h3>
 
-          <ul className="list h-96 p-3  overflow-y-scroll dark:bg-neutral-900 rounded-box shadow-md">
+          <ul className="list h-96 p-3  overflow-y-scroll dark:bg-neutral-900 ">
             {users.map((user) => (
               <li
                 key={user._id}
-                className="list-row mb-1   bg-gray-100 flex  justify-between items-center"
+                className="list-row mb-1 dark:bg-neutral-800  bg-gray-100 flex  justify-between items-center"
               >
                 <div className="w-12 ">
                   <img src="./avatar.png" />

@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
 import {toast, ToastContainer} from 'react-toastify'
 import {register, reset} from '../features/auth/authSlice'
+import Loader from '../components/Loader'
 
 function Register() {
 
@@ -64,9 +65,7 @@ function Register() {
     
       if (isLoading) {
         return (
-          <div className="flex justify-center items-center h-96">
-            <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-16 h-16 animate-spin"></div>
-          </div>
+        <Loader />
         )
       }
 

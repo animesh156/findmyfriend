@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const registerRoute =  "https://findmyfriend-backend.vercel.app/user/register"
+const registerRoute =  "https://findmyfriend-backend.vercel.app/user/register"   
+                 
+
+
 
 const loginRoute = "https://findmyfriend-backend.vercel.app/user/login"
 

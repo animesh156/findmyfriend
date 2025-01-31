@@ -3,16 +3,25 @@ import { getUserFriends, removeFriend } from "../api";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 function UserFriends() {
   const { user } = useSelector((state) => state.auth);
   const [friends, setFriends] = useState([]);
   const navigate = useNavigate()
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadUsers() {
-      const res = await getUserFriends(user._id);
+      try {
+        const res = await getUserFriends(user._id);
       setFriends(res.data);
+      setLoading(false)
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      }
+      
     }
     loadUsers();
   }, [user]);
@@ -41,6 +50,12 @@ function UserFriends() {
       }
   }, [user, navigate])
 
+  if (isLoading) {
+    return (
+     <Loader />
+    );
+  }
+
   return (
     <>
       <ToastContainer
@@ -54,8 +69,8 @@ function UserFriends() {
           <ul className="list p-3 overflow-y-scroll h-96 dark:bg-neutral-900 ">
             {friends.map((user) => (
               <li
-                key={user._id}
-                className="list-row bg-gray-200 flex justify-evenly items-center"
+               key={user._id}
+                className="list-row dark:bg-neutral-800 bg-gray-200 flex justify-evenly items-center"
               >
                 <div className="w-12">
                   <img src="./avatar.png" />

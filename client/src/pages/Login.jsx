@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from '../components/Loader'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -59,9 +60,7 @@ function Login() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-96">
-        <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-16 h-16 animate-spin"></div>
-      </div>
+     <Loader />
     );
   }
 
@@ -105,14 +104,14 @@ function Login() {
           <div>
             <button
               type="submit"
-              className="py-2 px-3 w-64 bg-neutral-950 hover:bg-neutral-800 text-white rounded-lg transition-all md:w-32"
+              className="py-2 px-3 w-64 dark:bg-sky-500 bg-neutral-950 hover:bg-neutral-800 text-white rounded-lg transition-all md:w-32"
             >
               Login
             </button>
           </div>
 
           <div className="mt-4">
-            <p className="font-bold text-neutral-900  text-base">
+            <p className="font-bold text-neutral-900 dark:text-pink-500  text-base">
               New User ?{" "}
               <Link
                 to="/register"

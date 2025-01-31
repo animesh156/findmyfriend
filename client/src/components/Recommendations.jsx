@@ -3,16 +3,26 @@ import { getRecommendations, sendFriendRequest } from "../api";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from '../components/Loader'
 
 function Recommendations() {
   const { user } = useSelector((state) => state.auth);
   const [recommendations, setRecommendations] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadRecommendations() {
-      const res = await getRecommendations(user._id);
+
+      try {
+        const res = await getRecommendations(user._id);
       setRecommendations(res.data);
+      setLoading(false)
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      }
+      
     }
     loadRecommendations();
   }, [user]);
@@ -39,6 +49,12 @@ function Recommendations() {
     }
   }, [user, navigate]);
 
+  if (isLoading) {
+    return (
+     <Loader />
+    );
+  }
+
   return (
     <>
       <ToastContainer
@@ -51,11 +67,11 @@ function Recommendations() {
             Suggested Friends
           </h3>
 
-          <ul className="list overflow-y-scroll h-96 p-3 dark:bg-neutral-900 rounded-box shadow-md">
+          <ul className="list overflow-y-scroll h-96 p-3 dark:bg-neutral-900 ">
             {recommendations.map((rec) => (
               <li
                 key={rec._id}
-                className="list-row mb-1   bg-gray-100 flex  justify-between items-center"
+                className="list-row mb-1 dark:bg-neutral-800  bg-gray-100 flex  justify-between items-center"
               >
                 <div className="w-12">
                   <img src="./avatar.png" alt="user_img" />
