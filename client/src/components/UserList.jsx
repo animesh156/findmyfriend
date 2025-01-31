@@ -35,7 +35,10 @@ function UserList() {
       {users.length > 0 ? (
         
         <>
-           <ToastContainer />
+           <ToastContainer
+           autoClose={2000}
+           closeOnClick
+            />
           <h3 className="text-2xl mb-4 text-teal-400 md:text-4xl text-center  font-bold ">
             All Users
           </h3>

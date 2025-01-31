@@ -43,7 +43,10 @@ function UserFriends() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+      autoClose={2000}
+      closeOnClick
+       />
       {friends.length > 0 ? (
         <>
           <h3 className="text-center mt-5 mb-5 md:text-4xl text-2xl font-bold">Users</h3>

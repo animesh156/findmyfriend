@@ -41,7 +41,10 @@ function Recommendations() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+      autoClose={2000}
+      closeOnClick
+       />
       {recommendations.length > 0 ? (
         <>
           <h3 className="text-red-600 text-center md:text-5xl text-2xl  mb-5 mt-5 font-bold">

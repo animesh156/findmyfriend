@@ -62,7 +62,10 @@ function FriendRequests() {
   return (
     <>
 
-     <ToastContainer />
+     <ToastContainer
+     autoClose={2000}
+     closeOnClick
+      />
     {requests.length > 0 ? (
       <>
       <h3 className="text-center font-bold text-2xl md:text-4xl mt-2 mb-5">Friend Requests</h3>

@@ -19,11 +19,13 @@ function Navbar() {
     const onLogout = () => {
       toast.success('Logged out scuccessfully')
         // Delay navigation to allow toast to display
-  
+   setTimeout(() => {
     dispatch(logout());
     dispatch(reset());
     navigate('/login');
 
+   }, 2000)
+    
     }
 
 

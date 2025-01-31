@@ -69,7 +69,10 @@ function Login() {
       className="flex flex-col md:mt-12 mt-8 items-center justify-center "
      
     >
-      <ToastContainer />
+      <ToastContainer
+      autoClose={2000}
+      closeOnClick
+       />
 
       <h1 className="md:text-6xl font-bold text-3xl text-center">Welcome Back</h1>
       <h4 className="text-center  mt-2 mb-6">Enter your email and password to access your account</h4>
