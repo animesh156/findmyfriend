@@ -79,8 +79,7 @@ function Register() {
     >
 
       <ToastContainer
-      autoClose={2000}
-      closeOnClick
+     
        />
       <h1 className="md:text-6xl font-bold text-4xl mb-6">Create an account</h1>
       <section className=" border  inset-shadow-white shadow-lg  md:w-96 px-7 py-7 text-center  rounded-2xl">

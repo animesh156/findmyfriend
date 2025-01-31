@@ -71,8 +71,7 @@ function Login() {
      
     >
       <ToastContainer
-      autoClose={2000}
-      closeOnClick
+     
        />
 
       <h1 className="md:text-6xl font-bold text-3xl text-center">Welcome Back</h1>
