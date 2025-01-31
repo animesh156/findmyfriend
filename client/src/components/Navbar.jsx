@@ -35,7 +35,12 @@ function Navbar() {
   return (
     <nav className="navbar bg-neutral-800">
 
-      <ToastContainer />
+      <ToastContainer 
+
+    autoClose={2000}
+    closeOnClick
+      
+      />
       <div className="nav-container">
         <div className="nav-logo ">
          
