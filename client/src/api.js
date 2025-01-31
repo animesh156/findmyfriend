@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = "https://findmyfriend-backend.vercel.app";
+let API_URL = "https://findmyfriend-backend.vercel.app";
 
 export const registerUser = (userData) => axios.post(`${API_URL}/user/register`, userData);
 export const loginUser = (userData) => axios.post(`${API_URL}/user/login`, userData);
