@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import UserList from "../components/UserList";
 
@@ -8,9 +8,7 @@ function Home() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    navigate("/login");
-  }, [user, navigate]);
+     if(!user) navigate('/login')
 
   return (
     <>
